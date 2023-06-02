@@ -4232,10 +4232,17 @@ export class CoinSelection {
 }
 /**
  * @typedef {{
+ *     signature: string,
+ *     key: string,
+ * }} DataSignature
+ */
+/**
+ * @typedef {{
  *     isMainnet(): Promise<boolean>,
  *     usedAddresses: Promise<Address[]>,
  *     unusedAddresses: Promise<Address[]>,
  *     utxos: Promise<UTxO[]>,
+ *     signData(address: Address, data: string): Promise<DataSignature>,
  *     signTx(tx: Tx): Promise<Signature[]>,
  *     submitTx(tx: Tx): Promise<TxId>
  * }} Wallet
@@ -4246,6 +4253,7 @@ export class CoinSelection {
  *     getUsedAddresses(): Promise<string[]>,
  *     getUnusedAddresses(): Promise<string[]>,
  *     getUtxos(): Promise<string[]>,
+ *     signData(address: string, data: string): Promise<DataSignature>,
  *     signTx(txHex: string, partialSign: boolean): Promise<string>,
  *     submitTx(txHex: string): Promise<string>
  * }} Cip30Handle
@@ -4274,6 +4282,12 @@ export class Cip30Wallet implements Wallet {
      * @type {Promise<UTxO[]>}
      */
     get utxos(): Promise<UTxO[]>;
+    /**
+     * @param {Address} address
+     * @param {string} data
+     * @returns {Promise<DataSignature>}
+     */
+    signData(address: Address, data: string): Promise<DataSignature>;
     /**
      * @param {Tx} tx
      * @returns {Promise<Signature[]>}
@@ -4435,6 +4449,12 @@ export class WalletEmulator implements Wallet {
      * @type {Promise<UTxO[]>}
      */
     get utxos(): Promise<UTxO[]>;
+    /**
+     * @param {Address} address
+     * @param {string} data
+     * @returns {Promise<DataSignature>}
+     */
+    signData(address: Address, data: string): Promise<DataSignature>;
     /**
      * Simply assumed the tx needs to by signed by this wallet without checking.
      * @param {Tx} tx
@@ -4718,11 +4738,16 @@ export type PropertyTest = (args: UplcValue[], res: (UplcValue | UserError)) => 
     [x: string]: boolean;
 });
 export type CoinSelectionAlgorithm = (utxos: UTxO[], amount: Value) => [UTxO[], UTxO[]];
+export type DataSignature = {
+    signature: string;
+    key: string;
+};
 export type Wallet = {
     isMainnet(): Promise<boolean>;
     usedAddresses: Promise<Address[]>;
     unusedAddresses: Promise<Address[]>;
     utxos: Promise<UTxO[]>;
+    signData(address: Address, data: string): Promise<DataSignature>;
     signTx(tx: Tx): Promise<Signature[]>;
     submitTx(tx: Tx): Promise<TxId>;
 };
@@ -4731,6 +4756,7 @@ export type Cip30Handle = {
     getUsedAddresses(): Promise<string[]>;
     getUnusedAddresses(): Promise<string[]>;
     getUtxos(): Promise<string[]>;
+    signData(address: string, data: string): Promise<DataSignature>;
     signTx(txHex: string, partialSign: boolean): Promise<string>;
     submitTx(txHex: string): Promise<string>;
 };

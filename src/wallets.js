@@ -25,6 +25,13 @@ import {
     CoinSelection
 } from "./coinselection.js";
 
+// Where best to put this?
+/**
+ * @typedef {{
+ *     signature: string,
+ *     key: string,
+ * }} DataSignature
+ */
 
 /**
  * @typedef {{
@@ -32,6 +39,7 @@ import {
  *     usedAddresses: Promise<Address[]>,
  *     unusedAddresses: Promise<Address[]>,
  *     utxos: Promise<UTxO[]>,
+ *     signData(address: Address, data: string): Promise<DataSignature>,
  *     signTx(tx: Tx): Promise<Signature[]>,
  *     submitTx(tx: Tx): Promise<TxId>
  * }} Wallet
@@ -43,6 +51,7 @@ import {
  *     getUsedAddresses(): Promise<string[]>,
  *     getUnusedAddresses(): Promise<string[]>,
  *     getUtxos(): Promise<string[]>,
+ *     signData(address: string, data: string): Promise<DataSignature>,
  *     signTx(txHex: string, partialSign: boolean): Promise<string>,
  *     submitTx(txHex: string): Promise<string>
  * }} Cip30Handle
@@ -55,7 +64,7 @@ export class Cip30Wallet {
     #handle;
 
     /**
-     * @param {Cip30Handle} handle 
+     * @param {Cip30Handle} handle
      */
     constructor(handle) {
         this.#handle = handle;
@@ -90,17 +99,26 @@ export class Cip30Wallet {
     }
 
     /**
-     * @param {Tx} tx 
+     * @param {Address} address
+     * @param {string} data
+     * @returns {Promise<DataSignature>}
+     */
+    async signData(address, data) {
+        return this.#handle.signData(address.toHex(), data);
+    }
+
+    /**
+     * @param {Tx} tx
      * @returns {Promise<Signature[]>}
      */
     async signTx(tx) {
         const res = await this.#handle.signTx(bytesToHex(tx.toCbor()), true);
-        
+
         return TxWitnesses.fromCbor(hexToBytes(res)).signatures;
     }
 
     /**
-     * @param {Tx} tx 
+     * @param {Tx} tx
      * @returns {Promise<TxId>}
      */
     async submitTx(tx) {
@@ -114,7 +132,7 @@ export class WalletHelper {
     #wallet;
 
     /**
-     * @param {Wallet} wallet 
+     * @param {Wallet} wallet
      */
     constructor(wallet) {
         this.#wallet = wallet;
@@ -183,10 +201,10 @@ export class WalletHelper {
     }
 
     /**
-     * @param {Value} amount 
+     * @param {Value} amount
      * @param {(allUtxos: UTxO[], anount: Value) => [UTxO[], UTxO[]]} algorithm
      * @returns {Promise<[UTxO[], UTxO[]]>} - [picked, not picked that can be used as spares]
-     */ 
+     */
     async pickUtxos(amount, algorithm = CoinSelection.selectSmallestFirst) {
         return algorithm(await this.#wallet.utxos, amount);
     }
