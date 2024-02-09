@@ -4512,7 +4512,7 @@ export class DataSwitchExpr extends SwitchExpr {
 						new IR("("), new IR("e"), new IR(") -> {"), 
 						ir,
 						new IR("("),
-						new IR("__code__unListData"),
+						new IR("__core__unListData"),
 						new IR("("), new IR("e"), new IR(")"),
 						new IR(")"),
 						new IR("}")
@@ -4523,7 +4523,7 @@ export class DataSwitchExpr extends SwitchExpr {
 						new IR("("), new IR("e"), new IR(") -> {"), 
 						ir,
 						new IR("("),
-						new IR("__code__unMapData"),
+						new IR("__core__unMapData"),
 						new IR("("), new IR("e"), new IR(")"),
 						new IR(")"),
 						new IR("}")
