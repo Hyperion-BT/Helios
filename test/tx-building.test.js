@@ -656,7 +656,7 @@ async function testAssetSplitOnChangeOutput() {
 					["48656C6C6F20776F726C642047", 1n],
 					["48656C6C6F20776F726C642048", 1n],
 					["48656C6C6F20776F726C642049", 1n],
-					["48656C6C6F20776F726C642040", 1n],
+					["48656C6C6F20776F726C642050", 1n],
 					["48656C6C6F20776F726C642051", 1n],
 					["48656C6C6F20776F726C642052", 1n],
 					["48656C6C6F20776F726C642053", 1n],
@@ -708,6 +708,177 @@ async function testAssetSplitOnChangeOutput() {
 		MAX_ASSETS_PER_CHANGE_OUTPUT: undefined
 	});
 }
+async function testAssetSplitOnChangeOutputMultiPolicy() {
+
+	const inputClean = new TxInput(
+		new TxOutputId("a66564e90416a3c3ed89350108799ab122bdbfd098624d0f43f955207ace8eda#1"),
+		new TxOutput(
+			new Address("addr_test1wpcwnce7k66ldmduhkqdrgamxmnytekhr2hyp8ncsdcg0aqufrga4"),
+			new Value(12000000n)
+		));
+
+	const input = new TxInput(
+		new TxOutputId("fed1bb855c77efd1fa209a1b35c447b13d4b09671f7d682263b9f3af1089f58c#1"),
+		new TxOutput(
+			new Address("addr_test1qruk42fdnsvvyuha6z23dagxq5966h68ta8d42cdsa6e05muqmq4j86269r4ckhjsvmapapl24fazrtl22yg9sn9pvfsz4vr2h"),
+			new Value(14172320n, new Assets([[
+				"5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7594", [
+					["48656C6C6F20776F726C642031", 1n],
+					["48656C6C6F20776F726C642032", 1n],
+					["48656C6C6F20776F726C642033", 1n],
+					["48656C6C6F20776F726C642034", 1n],
+					["48656C6C6F20776F726C642035", 1n],
+					["48656C6C6F20776F726C642036", 1n],
+					["48656C6C6F20776F726C642037", 1n],
+					["48656C6C6F20776F726C642038", 1n],
+					["48656C6C6F20776F726C642039", 1n],
+					["48656C6C6F20776F726C642040", 1n],
+					["48656C6C6F20776F726C642041", 1n],
+					["48656C6C6F20776F726C642042", 1n],
+					["48656C6C6F20776F726C642043", 1n],
+					["48656C6C6F20776F726C642044", 1n],
+					["48656C6C6F20776F726C642045", 1n],
+					["48656C6C6F20776F726C642046", 1n],
+					["48656C6C6F20776F726C642047", 1n],
+					["48656C6C6F20776F726C642048", 1n],
+					["48656C6C6F20776F726C642049", 1n],
+					["48656C6C6F20776F726C642040", 1n],
+					["48656C6C6F20776F726C642051", 1n],
+					["48656C6C6F20776F726C642052", 1n],
+					["48656C6C6F20776F726C642053", 1n],
+					["48656C6C6F20776F726C642054", 1n],
+					["48656C6C6F20776F726C642055", 1n],
+					["48656C6C6F20776F726C642056", 1n],
+					["48656C6C6F20776F726C642057", 1n],
+					["48656C6C6F20776F726C642058", 1n],
+					["48656C6C6F20776F726C642059", 1n],
+					["48656C6C6F20776F726C642050", 1n],
+					["48656C6C6F20776F726C642061", 1n],
+					["48656C6C6F20776F726C642062", 1n],
+					["48656C6C6F20776F726C642063", 1n],
+					["48656C6C6F20776F726C642064", 1n],
+					["48656C6C6F20776F726C642065", 1n],
+					["48656C6C6F20776F726C642066", 1n],
+					["48656C6C6F20776F726C642067", 1n],
+					["48656C6C6F20776F726C642068", 1n],
+					["48656C6C6F20776F726C642069", 1n],
+					["48656C6C6F20776F726C642060", 1n],
+				]
+			], [
+				"5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7595", [
+					["48656C6C6F20776F726C642031", 1n],
+					["48656C6C6F20776F726C642032", 1n],
+					["48656C6C6F20776F726C642033", 1n],
+					["48656C6C6F20776F726C642034", 1n],
+					["48656C6C6F20776F726C642035", 1n],
+					["48656C6C6F20776F726C642036", 1n],
+					["48656C6C6F20776F726C642037", 1n],
+					["48656C6C6F20776F726C642038", 1n],
+					["48656C6C6F20776F726C642039", 1n],
+					["48656C6C6F20776F726C642040", 1n],
+					["48656C6C6F20776F726C642041", 1n],
+					["48656C6C6F20776F726C642042", 1n],
+					["48656C6C6F20776F726C642043", 1n],
+					["48656C6C6F20776F726C642044", 1n],
+					["48656C6C6F20776F726C642045", 1n],
+					["48656C6C6F20776F726C642046", 1n],
+					["48656C6C6F20776F726C642047", 1n],
+					["48656C6C6F20776F726C642048", 1n],
+					["48656C6C6F20776F726C642049", 1n],
+					["48656C6C6F20776F726C642040", 1n],
+					["48656C6C6F20776F726C642051", 1n],
+					["48656C6C6F20776F726C642052", 1n],
+					["48656C6C6F20776F726C642053", 1n],
+					["48656C6C6F20776F726C642054", 1n],
+					["48656C6C6F20776F726C642055", 1n],
+					["48656C6C6F20776F726C642056", 1n],
+					["48656C6C6F20776F726C642057", 1n],
+					["48656C6C6F20776F726C642058", 1n],
+					["48656C6C6F20776F726C642059", 1n],
+					["48656C6C6F20776F726C642050", 1n],
+					["48656C6C6F20776F726C642061", 1n],
+					["48656C6C6F20776F726C642062", 1n],
+					["48656C6C6F20776F726C642063", 1n],
+					["48656C6C6F20776F726C642064", 1n],
+					["48656C6C6F20776F726C642065", 1n],
+					["48656C6C6F20776F726C642066", 1n],
+					["48656C6C6F20776F726C642067", 1n],
+					["48656C6C6F20776F726C642068", 1n],
+					["48656C6C6F20776F726C642069", 1n],
+					["48656C6C6F20776F726C642060", 1n],
+				]
+			]]))
+		)
+	);
+
+	const changeAddress = Address.fromBech32('addr_test1vrk907u2q3tnakfwvwmdl89jhlzy7tfqaqxwzwsch3afw0qqarpt4');
+	
+	let tx = await new Tx()
+		.addInput(input)
+		.finalize(networkParams, changeAddress, [inputClean])
+
+	console.log(tx.body.outputs.length);
+	let assetsInOutput = tx.body.outputs.map((o) => o.value.assets.getTokenNames(MintingPolicyHash.fromHex('5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7594')).length)
+	console.log( assetsInOutput.length === 2, assetsInOutput[0] == 39 );
+
+	config.set({
+		MAX_ASSETS_PER_CHANGE_OUTPUT: 5
+	});
+	
+	tx = await new Tx()
+		.addInput(input)
+		.finalize(networkParams, changeAddress, [inputClean]);
+
+	console.log(tx.body.outputs.length);
+	let assetsInOutput2 = tx.body.outputs.map((o) => o.value.assets.getTokenNames(MintingPolicyHash.fromHex('5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7594')))
+	let assetsInOutput3 = tx.body.outputs.map((o) => o.value.assets.getTokenNames(MintingPolicyHash.fromHex('5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7595')))
+	console.log( assetsInOutput2.map((o) =>  o.map(a => a.hex) ));
+	console.log( assetsInOutput3.map((o) =>  o.map(a => a.hex) ));
+	
+	config.set({
+		MAX_ASSETS_PER_CHANGE_OUTPUT: undefined
+	});
+}
+
+
+async function testUTxOsTooFragmented() {
+
+	const input1 = new TxInput(
+		new TxOutputId("a66564e90416a3c3ed89350108799ab122bdbfd098624d0f43f955207ace8eda#1"),
+		new TxOutput(
+			new Address("addr_test1wpcwnce7k66ldmduhkqdrgamxmnytekhr2hyp8ncsdcg0aqufrga4"),
+			new Value(52000000n, new Assets([["5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7500", [["48656C6C6F20776F726C642031", 1n]]]]))
+		));
+
+	const input = new TxInput(
+		new TxOutputId("fed1bb855c77efd1fa209a1b35c447b13d4b09671f7d682263b9f3af1089f58c#1"),
+		new TxOutput(
+			new Address("addr_test1qruk42fdnsvvyuha6z23dagxq5966h68ta8d42cdsa6e05muqmq4j86269r4ckhjsvmapapl24fazrtl22yg9sn9pvfsz4vr2h"),
+			new Value(24172320n, new Assets([[
+				"5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7594", [
+					["48656C6C6F20776F726C642031", 1n],
+					["48656C6C6F20776F726C642032", 1n],
+				]
+			]]))
+		)
+	);
+
+	const changeAddress = Address.fromBech32('addr_test1vrk907u2q3tnakfwvwmdl89jhlzy7tfqaqxwzwsch3afw0qqarpt4');
+	const receiveAddress = Address.fromBech32('addr_test1vr8xz7jf77ve6qdjategas0wj2e4wx7szlqgzhy4k3esgng649jwl');
+	
+	let tx = await new Tx()
+		.addInput(input)
+		.addOutput(new TxOutput(receiveAddress, new Value(10000000n, 
+			new Assets([[
+				"5e2f416b455dc4e5f9a7c7e58919e9a12a1db15e14ed08f8776b7594", [
+					["48656C6C6F20776F726C642031", 1n]
+				]
+			]]))))
+		.finalize(networkParams, changeAddress, [input1]);
+
+	console.log(JSON.stringify(tx.dump()));
+	console.log('8113e38071edbfe02eda73a7fe7b32a1e4ffbe957b1ac0ec1caa05d121a329ea' === bytesToHex(tx.bodyHash));
+}
 
 export default async function main() {
 	await assetsCompare();
@@ -743,4 +914,6 @@ export default async function main() {
 	await sortInputs();
 
 	await testAssetSplitOnChangeOutput();
+
+	await testUTxOsTooFragmented();
 }
